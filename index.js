@@ -15,10 +15,39 @@
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
+function Person(name, age){
+  this.name = name,
+  this.age = age,
+  this.stomach = []
+};
 
+Person.prototype.eat = function (food){
+  if (this.stomach.length <=10){
+    this.stomach.push(food);
+    return this.stomach;
+    }
+    else return this.stomach;
 }
 
+Person.prototype.poop = function (){
+  this.stomach = [];
+  return this.stomach;
+}
+
+Person.prototype.toString = function (){
+  return `${this.name}, ${this.age}`
+}
+
+/*
+const alana = new Person('Alana', 24);
+alana.eat('sushi');
+alana.eat('pizza');
+alana.eat('waffles');
+alana.eat('coffee');
+console.log(alana.stomach);
+console.log(alana.poop);
+console.log(alana.name);
+*/
 
 /*
   TASK 2
@@ -36,9 +65,30 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-
+function Car(model, milesPerGallon) {
+  this.model = model,
+  this.milesPerGallon = milesPerGallon,
+  this.tank = 0,
+  this.odometer = 0
 }
+
+Car.prototype.fill = function (gallons){
+  this.tank += gallons;
+  return `There's ${this.tank} gallons  in your tank.`
+};
+
+Car.prototype.drive = function (distance){
+  this.tank = this.tank - distance/this.milesPerGallon;
+  this.odometer += distance;
+  return `There's ${this.tank} gallons left in your tank and ${this.odometer} miles on your car.`;
+};
+
+/*
+const myCar = new Car("Honda Civic Hybrid", 40)
+console.log(myCar);
+console.log(myCar.fill(13));
+console.log(myCar.drive(30));
+*/
 
 
 /*
@@ -49,9 +99,17 @@ function Car() {
         + Should return a string "Playing with x", x being the favorite toy.
 */
 
-function Baby() {
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name ,age);
+  this.favoriteToy = favoriteToy
+};
 
-}
+Baby.prototype = Object.create(Person.prototype);
+
+Baby.prototype.play = function (){
+  return `Playing with ${this.favoriteToy}`;
+};
+
 
 
 /* 
